@@ -1,3 +1,4 @@
+import sys
 import threading
 import queue
 import numpy
@@ -14,6 +15,7 @@ class AudioRecorder():
         self.q = queue.Queue()
         
         # Get samplerate
+        print(sd.query_devices())
         device_info = sd.query_devices(2, 'input')
         self.samplerate = int(device_info['default_samplerate'])
 

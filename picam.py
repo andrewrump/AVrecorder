@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import time
 import threading
 import subprocess
@@ -10,8 +11,11 @@ from signal import pause
 def record_ten_seconds():
     file_name = time.time()
     
+    print("Press enter to start")
+    input("Press enter to start")
     start_AVrecording(file_name)
-    time.sleep(10)
+    print("Press enter to stop")
+    input("Press enter to stop")
     stop_AVrecording(file_name)
 
 def start_AVrecording(file_name):
@@ -54,10 +58,11 @@ def main():
     # Allows time for camera to boot up
     time.sleep(2)
 
-    button = Button(14)
-    button.when_pressed = record_ten_seconds
+    #button = Button(14)
+    #button.when_pressed = record_ten_seconds
     print("ready for action!")
-    pause()
+    record_ten_seconds()
+    #pause()
 
 if __name__ == "__main__":
     main()
