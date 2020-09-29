@@ -29,6 +29,9 @@ def stop_AVrecording(file_name):
     video_thread.stop()
 
     print("starting mux...")
+    # -use_wallclock_as_timestamps 1 -thread_queue_size 512
+    # -fflags \"+genpts\"
+    # -vsync drop
     cmd = "ffmpeg -i {1}/{0}.wav -i {1}/{0}.h264 -c:v copy -c:a aac -strict experimental {2}/{0}.mp4".format(file_name, tmp_dir, final_dir)
     subprocess.call(cmd, shell=True)
     print("done")
