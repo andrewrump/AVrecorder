@@ -1,6 +1,7 @@
 import threading
 import random
 import picamera
+from fractions import Fraction
 
 class VideoRecorder:
     def __init__(self):
@@ -15,16 +16,24 @@ class VideoRecorder:
         #self.camera.awb_mode = 'tungsten'
         #self.camera.awb_mode = 'flash'
         #self.camera.awb_mode = 'horizon'
-        #self.camera.awb_mode = 'off'
+        self.camera.awb_mode = 'off'
         #self.camera.awb_mode = 'sunlight'
         #self.camera.awb_mode = 'fluorescent'
         #self.camera.awb_mode = 'incandescent'
+        #self.camera.awb_gains = (Fraction(395, 256), Fraction(245, 128))
+        #self.camera.awb_gains = (Fraction(395, 256), Fraction(395, 256)) # Good
+        #self.camera.awb_gains = (Fraction(200, 256), Fraction(200, 256)) # Green
+        #self.camera.awb_gains = (Fraction(300, 256), Fraction(300, 256)) # Gult?
+        self.camera.awb_gains = (Fraction(350, 256), Fraction(350, 256)) # Green
+        print('I' + str(self.camera.awb_gains))
 
     def record(self):
         self.camera.start_preview(alpha = 200)
         self.camera.start_recording(self.file_name)
+        print('R' + str(self.camera.awb_gains))
 
     def stop(self):
+        print('E' + str(self.camera.awb_gains))
         self.camera.stop_recording()
         self.camera.stop_preview()
 
@@ -33,3 +42,4 @@ class VideoRecorder:
 
         video_thread = threading.Thread(target=self.record)
         video_thread.start()
+        print('B' + str(self.camera.awb_gains))
